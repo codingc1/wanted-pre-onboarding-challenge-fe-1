@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { HOME } from "../../routers/route-name-constants";
+import { ROUTES } from "../../routers/route-name-constants";
+
 
 // import { Link } from "react-router-dom";
 
@@ -18,7 +19,7 @@ export const NotFound = () => {//{msg}:{msg?:string}
     <h4 className="font-medium text-base mb-5">
       The page you're looking for does not exist or has moved.
     </h4>
-    <a href={HOME} className="hover:underline text-lime-600">Go back home &rarr;</a>
+    <a href={ROUTES.HOME} className="hover:underline text-lime-600">Go back home &rarr;</a>
 
   </div>
   )

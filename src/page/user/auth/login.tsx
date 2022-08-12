@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import {  useNavigate } from "react-router-dom";
-import { authTokenVar, isLoggedInVar } from "../../apollo"
-import { AUTOLOGIN, LOCALSTORAGE_TOKEN } from "../../constants"
+import { authTokenVar, isLoggedInVar } from "../../../apollo"
+import { LOCALSTORAGE_TOKEN } from "../../../constants"
 import axios, { AxiosError } from "axios";
-import { SmLimeButton } from "../../components/common/button/sm-lime-button";
-import { APIRouter } from "../../api/api-router";
-import { axiosErr } from "../../api/axios-func";
-import { authChk } from "../../func/auth/chk-func";
-import { HOME, SIGNUP_ROUTE_NAME } from "../../routers/route-name-constants";
+import { SmLimeButton } from "../../../components/common/button/sm-lime-button";
+import { APIRouter } from "../../../api/api-router";
+import { axiosDetailErr } from "../../../api/axios-func";
+import { authChk } from "../../../func/auth/chk-func";
+import { ROUTES } from "../../../routers/route-name-constants";
 
 type LoginResponse = {
     message: string,
@@ -23,7 +23,6 @@ export const Login =()=>{
 
   useEffect(()=>{
     const reset =async()=>{
-      localStorage.removeItem(AUTOLOGIN);
       localStorage.removeItem(LOCALSTORAGE_TOKEN);
       authTokenVar(null)
       isLoggedInVar(false)
@@ -62,9 +61,9 @@ export const Login =()=>{
         localStorage.setItem(LOCALSTORAGE_TOKEN, res.data.token);
         authTokenVar(res.data.token);
         isLoggedInVar(true)
-        navigate(HOME, { replace: true });
+        navigate(ROUTES.HOME, { replace: true });
       } catch (error) {
-        axiosErr(axios, error as Error | AxiosError<unknown, any>)
+        axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
       }
       setLoading(false);
   };
@@ -82,7 +81,7 @@ export const Login =()=>{
                 <div className=" w-full flex justify-start items-center">
                     <div>ToDo가 처음이세요?</div>
                     <div className="px-2 py-2">
-                        <a href={SIGNUP_ROUTE_NAME} className="text-lime-600 hover:underline">회원 가입하기</a>
+                        <a href={ROUTES.SIGNUP} className="text-lime-600 hover:underline">회원 가입하기</a>
                     </div>
                 </div>
             

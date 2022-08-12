@@ -1,6 +1,6 @@
-import React from "react";
 
-export const Footer: React.FC = () => {
+
+export const Footer= () => {
 return(    
 <footer className="w-full max-w-screen-lg mx-auto flex mt-20 mb-5 text-gray-400">
   {/* <div className=" max-w-xs"><img src={logo} width="32" height="32" alt="hang" /></div> */}
