@@ -20,7 +20,12 @@ export const APIRouter = {
       const { data } = await axiosLoginApi.post(`${APIRouter.users.login}`, { email, password });
       return data;
     },
-
+    todo:{
+      getTodoList: async function() :Promise<TodoResponse> {
+        const { data } = await axiosLoginApi.get<TodoResponse>(`${APIRouter.todos.crud}`, );
+        return data;
+      }
+    },
   }
 
 

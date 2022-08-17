@@ -8,6 +8,7 @@ import { APIRouter } from "../../../api/api-router";
 import { axiosDetailErr } from "../../../api/axios-func";
 import { authChk } from "../../../func/auth/chk-func";
 import { ROUTES, } from "../../../routers/route-name-constants";
+import { loginTokenReduxProcess } from "../../../utils/loginTokenReduxProcess";
 
 type signUpResponse = {
   message: string,
@@ -45,12 +46,9 @@ export const SignUp =()=>{
     try {
         const res = await axios.post<signUpResponse>(`${APIRouter.users.signUp}`, {
           email, password, });
-        // alert(res.data.message);
         alert(res.data.message)
-        console.log(res, 'res')
-        localStorage.setItem(LOCALSTORAGE_TOKEN, res.data.token);
-        authTokenVar(res.data.token);
-        isLoggedInVar(true)
+        loginTokenReduxProcess( res.data.token)
+        navigate(ROUTES.HOME, { replace: true });
       } catch (error) {
         // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
       }

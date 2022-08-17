@@ -1,8 +1,5 @@
-import { useMutation, UseMutationOptions } from "react-query";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { ApiUser, ILoginInput, LoginResponse } from "../../api/api-router";
-import { authTokenVar, isLoggedInVar } from "../../apollo";
-import { LOCALSTORAGE_TOKEN } from "../../constants";
-
 
 const useLoginMutation = (
     options?: UseMutationOptions<LoginResponse, Error, ILoginInput>

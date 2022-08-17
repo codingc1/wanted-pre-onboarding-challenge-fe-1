@@ -2,14 +2,13 @@ import { useEffect, useState } from "react"
 import {  useNavigate } from "react-router-dom";
 import { authTokenVar, isLoggedInVar } from "../../../apollo"
 import { LOCALSTORAGE_TOKEN } from "../../../constants"
-import axios, { AxiosError } from "axios";
 import { SmLimeButton } from "../../../components/common/button/sm-lime-button";
-import { APIRouter, LoginResponse } from "../../../api/api-router";
 import { axiosDetailErr } from "../../../api/axios-func";
 import { authChk } from "../../../func/auth/chk-func";
 import { ROUTES } from "../../../routers/route-name-constants";
 import useLoginMutation from "../../../hooks/query/useLogin";
-import useResultSuccessOrEorrorToast from "../../../hooks/common/useToast";
+import useResultSuccessOrErrorToast from "../../../hooks/common/useToast";
+import { loginTokenReduxProcess } from "../../../utils/loginTokenReduxProcess";
 
 export const Login =()=>{
     let navigate = useNavigate();
@@ -35,10 +34,10 @@ export const Login =()=>{
   }
 
 
-  const { error:toastError, }  =  useResultSuccessOrEorrorToast()
+  const { error:toastError, }  =  useResultSuccessOrErrorToast()
   const { mutate:loginMutate, isLoading } = useLoginMutation({
-    onSuccess: () => { //loginData
-      // success({message:loginData.message, onClose:()=> navigate(ROUTES.HOME, { replace: true }) })
+    onSuccess: (loginData) => { //loginData
+      loginTokenReduxProcess(loginData.token)
       navigate(ROUTES.HOME, { replace: true });
     },
     onError: (error) => {

@@ -1,10 +1,8 @@
-import { AxiosError, AxiosStatic } from "axios";
+import { AxiosError,  } from "axios";
 
 
 
-// type TodoErrorResponse = {
-//     details: string;
-//   };
+// axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
 export const axiosDetailErr=( error: any ):string=>{
     try{
         if(error instanceof AxiosError){

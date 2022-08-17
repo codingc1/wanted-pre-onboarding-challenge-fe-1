@@ -5,7 +5,7 @@ type IToastOption={
   customOption?:ToastOptions,
   onClose?:()=>void,
 }
-const useResultSuccessOrEorrorToast = () => {
+const useResultSuccessOrErrorToast = () => {
   const option: ToastOptions = {
     position: 'top-center',
     autoClose: 2000,
@@ -54,6 +54,6 @@ const useResultSuccessOrEorrorToast = () => {
   return { success, error,  };
 };
 
-export default useResultSuccessOrEorrorToast;
+export default useResultSuccessOrErrorToast;
 
 //출처 : https://github.com/Circlewee/wanted-pre-onboarding-challenge-fe-1/blob/first-refactor/src/hooks/useToast.ts

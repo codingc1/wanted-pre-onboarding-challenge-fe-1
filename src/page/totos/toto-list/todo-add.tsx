@@ -1,15 +1,12 @@
-import { useReactiveVar } from "@apollo/client"
-import axios, { AxiosError } from "axios"
 import { useState } from "react"
 import { APIRouter, TodoResponseOneTodo } from "../../../api/api-router"
 import { axiosDetailErr, } from "../../../api/axios-func"
 import { axiosWithToken } from "../../../api/axios-instance"
-import { todoDataVar } from "../../../stores/todo-data"
-import { todoStore } from "../../../stores/todo-store/todo-store"
+import useResultSuccessOrErrorToast from "../../../hooks/common/useToast"
+import useGetTodoList from "../hooks/useGetTodoList"
 
 
 export const TodoAdd=()=>{
-    const todoData = useReactiveVar(todoDataVar);
     const [title, setTitle]=useState('')
     const [content, setContent]=useState('')
 
@@ -19,16 +16,20 @@ export const TodoAdd=()=>{
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent( e.target.value)
     }
+    const { refetch } = useGetTodoList();
+    const { error:toastError, }  =  useResultSuccessOrErrorToast()
     const submit=async()=>{
         try {
             const res = await axiosWithToken.post<TodoResponseOneTodo>(`${APIRouter.todos.crud}`, {
                     title,content
                 });
-            todoStore.setTodos([...todoData.todoData, res.data.data])
-            setTitle('')
-            setContent('')
+            if(res.data){
+                refetch()   
+                setTitle('')
+                setContent('')
+            } 
           } catch (error) {
-            // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+            toastError({message:axiosDetailErr(error)}) 
           }
         }
     

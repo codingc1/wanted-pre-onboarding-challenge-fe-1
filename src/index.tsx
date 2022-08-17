@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import { client } from "./apollo";
 import "./styles/styles.css";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(
