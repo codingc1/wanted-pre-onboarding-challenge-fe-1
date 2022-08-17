@@ -52,7 +52,7 @@ export const SignUp =()=>{
         authTokenVar(res.data.token);
         isLoggedInVar(true)
       } catch (error) {
-        axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+        // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
       }
       setLoading(false);
   };

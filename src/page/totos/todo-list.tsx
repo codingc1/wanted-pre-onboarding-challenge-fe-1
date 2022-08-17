@@ -25,7 +25,7 @@ export const TodoList = () => {
           const res = await axiosWithToken.get<TodoResponse>(`${APIRouter.todos.crud}` );
           todoStore.setTodos(res.data.data)
         } catch (error) {
-          axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+          // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
         }
       }
       init()

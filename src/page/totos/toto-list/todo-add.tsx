@@ -28,7 +28,7 @@ export const TodoAdd=()=>{
             setTitle('')
             setContent('')
           } catch (error) {
-            axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+            // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
           }
         }
     

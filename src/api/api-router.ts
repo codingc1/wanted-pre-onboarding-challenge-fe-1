@@ -1,5 +1,7 @@
+import axios from "axios";
 import { ITodo } from "../stores/todo-data";
 import { BASE_URL } from "./app-setting";
+import { axiosLoginApi } from "./axios-instance";
 
 export const APIRouter = {
     users:{ //http://localhost:8080/users/login
@@ -13,7 +15,23 @@ export const APIRouter = {
     }
     
   };
+  export const ApiUser={
+    login: async ({ email, password }: ILoginInput): Promise<LoginResponse> => {
+      const { data } = await axiosLoginApi.post(`${APIRouter.users.login}`, { email, password });
+      return data;
+    },
 
+  }
+
+
+  export interface ILoginInput {
+    email: string;
+    password: string;
+  }
+  export type LoginResponse = {
+    message: string,
+    token: string,
+  }; 
   export type TodoResponse = {
     data: ITodo[]
   }; 

@@ -6,14 +6,21 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import { client } from "./apollo";
 import "./styles/styles.css";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+      <ToastContainer />
+    </QueryClientProvider>
     </ApolloProvider>
   </React.StrictMode>
 );

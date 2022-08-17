@@ -4,21 +4,18 @@ import { authTokenVar, isLoggedInVar } from "../../../apollo"
 import { LOCALSTORAGE_TOKEN } from "../../../constants"
 import axios, { AxiosError } from "axios";
 import { SmLimeButton } from "../../../components/common/button/sm-lime-button";
-import { APIRouter } from "../../../api/api-router";
+import { APIRouter, LoginResponse } from "../../../api/api-router";
 import { axiosDetailErr } from "../../../api/axios-func";
 import { authChk } from "../../../func/auth/chk-func";
 import { ROUTES } from "../../../routers/route-name-constants";
-
-type LoginResponse = {
-    message: string,
-    token: string,
-  }; 
+import useLoginMutation from "../../../hooks/query/useLogin";
+import useResultSuccessOrEorrorToast from "../../../hooks/common/useToast";
 
 export const Login =()=>{
     let navigate = useNavigate();
     const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false);
+  // const [isLoading  , setLoading] = useState(false);
 
 
   useEffect(()=>{
@@ -38,8 +35,16 @@ export const Login =()=>{
   }
 
 
-  
-
+  const { error:toastError, }  =  useResultSuccessOrEorrorToast()
+  const { mutate:loginMutate, isLoading } = useLoginMutation({
+    onSuccess: () => { //loginData
+      // success({message:loginData.message, onClose:()=> navigate(ROUTES.HOME, { replace: true }) })
+      navigate(ROUTES.HOME, { replace: true });
+    },
+    onError: (error) => {
+      toastError({message:axiosDetailErr(error)}) 
+    },
+  });
   const submit = async() => {
     const emailCheckResult = authChk.chkEmail(email)
     if(emailCheckResult){
@@ -51,21 +56,9 @@ export const Login =()=>{
         alert(passCheckResult); 
         return;
     }
-    setLoading(true)
-    try {
-        const res = await axios.post<LoginResponse>(`${APIRouter.users.login}`, {
-          email, password, });
-        // alert(res.data.message);
-        alert(res.data.message)
-        console.log(res, 'res')
-        localStorage.setItem(LOCALSTORAGE_TOKEN, res.data.token);
-        authTokenVar(res.data.token);
-        isLoggedInVar(true)
-        navigate(ROUTES.HOME, { replace: true });
-      } catch (error) {
-        axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
-      }
-      setLoading(false);
+
+    loginMutate({email, password})
+
   };
 
     return( // style={{color:"bg-lime-600", hoverColor:"bg-lime-700"}}
@@ -75,7 +68,7 @@ export const Login =()=>{
                 <input className="w-full input-lime mb-3" placeholder="email" value={email} onChange={onChangeEmail}/>
                 <input className={`w-full input-lime mb-3`} placeholder=" 비밀번호" type="password" value={password} onChange={onChangePassword}/>
                 <div className="w-full mb-1">
-                    <SmLimeButton loading={loading} text={"로그인"} submit={submit}  />
+                    <SmLimeButton loading={isLoading} text={"로그인"} submit={submit}  />
                 </div>
 
                 <div className=" w-full flex justify-start items-center">

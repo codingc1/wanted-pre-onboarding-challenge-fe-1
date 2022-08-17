@@ -15,6 +15,25 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
     return children;
   }
 
+
+  // type IProtectedRoute = { 
+  //   when: boolean; 
+  //   children: React.ReactElement;
+  // } & React.ComponentProps<typeof Navigate>
+
+  // export const ProtectedRoute = ({ when, children, ...props }: IProtectedRoute) => {
+  //   return (when ? children : <Navigate {...props} /> );
+  // }
+  
+  // type IProtectedRoute = { 
+  //   when: boolean; 
+  //   children: React.ReactElement;
+  // } & React.ComponentProps<typeof Navigate>
+  
+  // const ProtectedRoute = ({ when, children, ...props }: IProtectedRoute) => {
+  //   return (when ? <Navigate {...props} /> : children);
+  // }
+
 // export function RequireAuth({ children }: { children: JSX.Element }) {
 //     let location = useLocation();
 //     const isLoggedIn = useReactiveVar(isLoggedInVar);

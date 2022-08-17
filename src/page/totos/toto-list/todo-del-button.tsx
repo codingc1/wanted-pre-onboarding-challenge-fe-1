@@ -21,7 +21,7 @@ export const TodoDelButton=({todoItem}:{todoItem:ITodo})=>{
           newArr.splice(index, 1)
           todoStore.setTodos(newArr)
         } catch (error) {
-          axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+          // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
         }
       }
 
