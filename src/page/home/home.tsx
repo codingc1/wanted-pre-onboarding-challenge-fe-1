@@ -21,18 +21,18 @@ export const Home =()=>{
         alert('로그아웃되어 로그인으로 이동합니다.')
         navigate(ROUTES.LOGIN, { replace: true })
     }
-    useEffect(()=>{
-        const init=async()=>{
-            if( !isLoggedIn )goToLogin()
-            try {
-                const res = await axiosWithToken.get<TodoResponse>(`${APIRouter.todos.crud}` );
-                todoStore.setTodos(res.data.data)
-              } catch (error) {
-                goToLogin()
-              }
-        }
-        init()
-    },[])
+    // useEffect(()=>{
+    //     const init=async()=>{
+    //         if( !isLoggedIn )goToLogin()
+    //         try {
+    //             const res = await axiosWithToken.get<TodoResponse>(`${APIRouter.todos.crud}` );
+    //             todoStore.setTodos(res.data.data)
+    //           } catch (error) {
+    //             goToLogin()
+    //           }
+    //     }
+    //     init()
+    // },[])
 
     const goTodo=()=>{
         navigate(ROUTES.TODOLIST)

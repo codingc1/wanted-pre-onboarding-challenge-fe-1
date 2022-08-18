@@ -24,7 +24,11 @@ export const APIRouter = {
       getTodoList: async function() :Promise<TodoResponse> {
         const { data } = await axiosLoginApi.get<TodoResponse>(`${APIRouter.todos.crud}`, );
         return data;
-      }
+      },
+      postTodoAdd: async function<T>(todoObj:T) :Promise<TodoResponse> {
+        const { data } = await axiosLoginApi.post<TodoResponse>(`${APIRouter.todos.crud}`, todoObj );
+        return data;
+      },
     },
   }
 
@@ -37,6 +41,10 @@ export const APIRouter = {
     message: string,
     token: string,
   }; 
+  export interface INewTodoInput {
+    title: string;
+    content: string;
+  }
   export type TodoResponse = {
     data: ITodo[]
   }; 

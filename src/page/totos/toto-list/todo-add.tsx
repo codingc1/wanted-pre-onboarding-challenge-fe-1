@@ -1,10 +1,5 @@
 import { useState } from "react"
-import { APIRouter, TodoResponseOneTodo } from "../../../api/api-router"
-import { axiosDetailErr, } from "../../../api/axios-func"
-import { axiosWithToken } from "../../../api/axios-instance"
-import useResultSuccessOrErrorToast from "../../../hooks/common/useToast"
-import useGetTodoList from "../hooks/useGetTodoList"
-
+import { useNewTodoMutation } from "../hooks/useNewTodoMutation"
 
 export const TodoAdd=()=>{
     const [title, setTitle]=useState('')
@@ -16,24 +11,13 @@ export const TodoAdd=()=>{
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent( e.target.value)
     }
-    const { refetch } = useGetTodoList();
-    const { error:toastError, }  =  useResultSuccessOrErrorToast()
+   
+    const  { newTodoFn, isLoading,  }  = useNewTodoMutation()
     const submit=async()=>{
-        try {
-            const res = await axiosWithToken.post<TodoResponseOneTodo>(`${APIRouter.todos.crud}`, {
-                    title,content
-                });
-            if(res.data){
-                refetch()   
-                setTitle('')
-                setContent('')
-            } 
-          } catch (error) {
-            toastError({message:axiosDetailErr(error)}) 
-          }
+        if(isLoading)return;
+        newTodoFn({title, content})
         }
     
-
     return(
         <div className="w-full mt-4">
             <div className="w-full flex " >
@@ -47,4 +31,22 @@ export const TodoAdd=()=>{
         </div>
     )
 }
+
 //style={{border:'1px solid rgb(229 231 235)'}}
+        // try {
+        //     if(isLoading)return;
+
+            
+        //     mutate({title, content})
+        //     const res = await axiosWithToken.post<TodoResponseOneTodo>(`${APIRouter.todos.crud}`, {
+        //             title,content
+        //         });
+
+        //     if(res.data){
+        //         refetch()   
+        //         setTitle('')
+        //         setContent('')
+        //     } 
+        //   } catch (error) {
+        //     toastError({message:axiosDetailErr(error)}) 
+        //   }

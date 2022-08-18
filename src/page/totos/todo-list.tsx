@@ -1,10 +1,7 @@
 
-import { useReactiveVar } from "@apollo/client";
 import { useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routers/route-name-constants";
-import { todoDataVar } from "../../stores/todo-data";
-import { todoStore } from "../../stores/todo-store/todo-store";
 import useGetTodoList from "./hooks/useGetTodoList";
 import { TodoAdd } from "./toto-list/todo-add";
 import { TodoDelButton } from "./toto-list/todo-del-button";
@@ -16,19 +13,8 @@ export const TodoList = () => {
   let navigate = useNavigate();
   // const todoData = useReactiveVar(todoDataVar);
   
-  const { data: todosList, refetch: refetchTodos } = useGetTodoList();
-    useEffect(()=>{
-      const init=async()=>{
-        try {
-          
-          // const res = await axiosWithToken.get<TodoResponse>(`${APIRouter.todos.crud}` );
-          // todoStore.setTodos(res.data.data)
-        } catch (error) {
-          // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
-        }
-      }
-      init()
-    },[])
+  const { data: todosList, } = useGetTodoList();
+
 
     const goHome=()=>navigate(ROUTES.HOME)
 
