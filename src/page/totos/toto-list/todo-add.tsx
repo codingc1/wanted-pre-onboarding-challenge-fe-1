@@ -12,10 +12,14 @@ export const TodoAdd=()=>{
         setContent( e.target.value)
     }
    
-    const  { newTodoFn, isLoading,  }  = useNewTodoMutation()
+    const  { newTodoFn, isLoading, isSuccess  }  = useNewTodoMutation()
     const submit=async()=>{
         if(isLoading)return;
         newTodoFn({title, content})
+        if(isSuccess ){
+            setTitle('')
+            setContent('')
+        }
         }
     
     return(

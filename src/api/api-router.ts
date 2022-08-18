@@ -1,11 +1,9 @@
-import axios from "axios";
 import { ITodo } from "../stores/todo-data";
 import { BASE_URL } from "./app-setting";
 import { axiosLoginApi } from "./axios-instance";
 
 export const APIRouter = {
-    users:{ //http://localhost:8080/users/login
-      // login: `${BASE_URL}/users/login`,
+    users:{ 
       login: BASE_URL+'/users/login',
       signUp: `${BASE_URL}/users/create`,
     },

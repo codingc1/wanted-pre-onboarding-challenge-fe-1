@@ -8,8 +8,6 @@ import { SmLimeButton } from "../../components/common/button/sm-lime-button";
 import { LOCALSTORAGE_TOKEN } from "../../constants";
 import { logOutFunc } from "../../func/auth/logout-func";
 import { ROUTES } from "../../routers/route-name-constants";
-import { todoStore } from "../../stores/todo-store/todo-store";
-
 
 
 export const Home =()=>{
@@ -21,18 +19,9 @@ export const Home =()=>{
         alert('로그아웃되어 로그인으로 이동합니다.')
         navigate(ROUTES.LOGIN, { replace: true })
     }
-    // useEffect(()=>{
-    //     const init=async()=>{
-    //         if( !isLoggedIn )goToLogin()
-    //         try {
-    //             const res = await axiosWithToken.get<TodoResponse>(`${APIRouter.todos.crud}` );
-    //             todoStore.setTodos(res.data.data)
-    //           } catch (error) {
-    //             goToLogin()
-    //           }
-    //     }
-    //     init()
-    // },[])
+    useEffect(()=>{
+        if( !isLoggedIn )goToLogin()
+    },[])
 
     const goTodo=()=>{
         navigate(ROUTES.TODOLIST)

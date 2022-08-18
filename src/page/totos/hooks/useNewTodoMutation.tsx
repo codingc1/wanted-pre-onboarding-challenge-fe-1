@@ -13,7 +13,7 @@ export const useNewTodoMutation=()=>{
     const queryClient = useQueryClient()
 
     const { error:toastError, }  =  useResultSuccessOrErrorToast()
-    const { mutate, isLoading, error, } = useMutation(newTodo, {
+    const { mutate, isLoading, error,isSuccess  } = useMutation(newTodo, {
         onSuccess: () => {
           queryClient.invalidateQueries([QUERY.TODOLIST])
         },
@@ -25,7 +25,7 @@ export const useNewTodoMutation=()=>{
         mutate({title, content})
     }
 
-    return { newTodoFn, isLoading, error, } 
+    return { newTodoFn, isLoading, error, isSuccess } 
 }
 
 
