@@ -7,11 +7,14 @@ import { ROUTES } from "../../../routers/route-name-constants";
 import useLoginMutation from "../../../hooks/query/useLogin";
 import useResultSuccessOrErrorToast from "../../../hooks/common/useToast";
 import { useLoginOut } from "../hook/useLogInOut";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import { logInRedux, logOutRedux, selectIsLogin } from "../../../stores/user/login-slice";
+import { LOCALSTORAGE_TOKEN } from "../../../constants";
 
 
 export const Login =()=>{
     let navigate = useNavigate();
-
+    const isLogin = useAppSelector(selectIsLogin);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
   // const [isLoading  , setLoading] = useState(false);
@@ -35,15 +38,15 @@ export const Login =()=>{
 
   const { error:toastError, }  =  useResultSuccessOrErrorToast()
   const { mutate:loginMutate, isLoading } = useLoginMutation({
-    onSuccess: async(loginData) => { //loginData
-      await logInTokenBatch(loginData.token)
+    onSuccess: (loginData) => { //loginData
+      logInTokenBatch(loginData.token)
       navigate(ROUTES.HOME, { replace: true });
     },
     onError: (error) => {
       toastError({message:axiosDetailErr(error)}) 
     },
   });
-  const submit = async() => {
+  const submit = () => {
     const emailCheckResult = authChk.chkEmail(email)
     if(emailCheckResult){
         alert(emailCheckResult); 
@@ -70,7 +73,7 @@ export const Login =()=>{
                 </div>
 
                 <div className=" w-full flex justify-start items-center">
-                    <div>ToDo가 처음이세요?</div>
+                    <div >ToDo가 처음이세요?</div>
                     <div className="px-2 py-2">
                         <a href={ROUTES.SIGNUP} className="text-lime-600 hover:underline">회원 가입하기</a>
                     </div>

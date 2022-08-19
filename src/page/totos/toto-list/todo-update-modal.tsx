@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { ContentModal } from "../../../components/common/content-modal"
-import { ContentModalNew } from "../../../components/common/modal/content-modal-new"
 import { useContentModal } from "../../../components/common/modal/useContentModal"
 import { ITodo } from "../../../stores/todo-data"
-
+import { AiOutlineFall} from "react-icons/ai";
 
 
 export const TodoUpdateModal=({todoItem}:{todoItem:ITodo,})=>{
@@ -27,7 +25,7 @@ export const TodoUpdateModal=({todoItem}:{todoItem:ITodo,})=>{
 
     return(
         <div>
-          <button onClick={()=>setIsModalOpen(true)}>수정</button>
+          <AiOutlineFall size={12} onClick={()=>setIsModalOpen(true)}/>
           {isModalOpen && modal()}
           {/* <ContentModalNew msg={'ss'} /> */}
           {/* {

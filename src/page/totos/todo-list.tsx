@@ -1,5 +1,4 @@
 
-import { useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routers/route-name-constants";
 import useGetTodoList from "./hooks/useGetTodoList";

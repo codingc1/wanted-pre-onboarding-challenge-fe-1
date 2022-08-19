@@ -10,7 +10,7 @@ export interface LoginState {
 
 
 const initialState: LoginState = {
-  value: Boolean(localStorage.getItem(LOCALSTORAGE_TOKEN)),
+  value: false//Boolean(localStorage.getItem(LOCALSTORAGE_TOKEN)),
 };
 
 export const isLoginSlice = createSlice({
