@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloProvider } from '@apollo/client';
-import { client } from "./apollo";
+import { Provider } from "react-redux";
 import "./styles/styles.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
+import {store} from "./store";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,12 +16,12 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <App />
       <ToastContainer />
     </QueryClientProvider>
-    </ApolloProvider>
+    </Provider >
   </React.StrictMode>
 );
 

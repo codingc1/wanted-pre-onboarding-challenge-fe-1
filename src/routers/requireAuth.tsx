@@ -1,10 +1,13 @@
-import { useReactiveVar } from "@apollo/client";
+
 import { useLocation, Navigate } from "react-router-dom";
-import { isLoggedInVar } from "../apollo";
+import { useAppSelector } from "../stores/hooks";
+import { selectIsLogin } from "../stores/user/login-slice";
+
 import { ROUTES } from "./route-name-constants";
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
-    const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const isLoggedIn = useAppSelector(selectIsLogin);
+  // const dispatch = useAppDispatch();
     let location = useLocation();
   
     if (!isLoggedIn) {

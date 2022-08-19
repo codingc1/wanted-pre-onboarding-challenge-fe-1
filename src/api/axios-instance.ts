@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
-import { authTokenVar, isLoggedInVar } from '../apollo';
 import { LOCALSTORAGE_TOKEN } from '../constants';
 import { serverAddress } from './app-setting';
 
+const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN)
 const headers = {
     "Content-Type": "application/json",
-    Authorization: String(window.localStorage.getItem(LOCALSTORAGE_TOKEN)),
+    Authorization: token?String(window.localStorage.getItem(LOCALSTORAGE_TOKEN)):'',
   };
 
 export const axiosWithToken: AxiosInstance = axios.create({
@@ -18,8 +18,6 @@ axiosLoginApi.interceptors.response.use(
 	(res) => {
 		if (res.data.token) {
 			localStorage.setItem(LOCALSTORAGE_TOKEN, res.data.token);
-      authTokenVar(res.data.token);
-      isLoggedInVar(true)
 		}
 	  return res;
 	},

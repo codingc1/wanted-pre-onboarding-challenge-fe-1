@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {  useNavigate } from "react-router-dom";
-import { authTokenVar, isLoggedInVar } from "../../../apollo"
-import { LOCALSTORAGE_TOKEN } from "../../../constants"
-import axios, { AxiosError } from "axios";
+import axios  from "axios";
 import { SmLimeButton } from "../../../components/common/button/sm-lime-button";
 import { APIRouter } from "../../../api/api-router";
-import { axiosDetailErr } from "../../../api/axios-func";
 import { authChk } from "../../../func/auth/chk-func";
 import { ROUTES, } from "../../../routers/route-name-constants";
-import { loginTokenReduxProcess } from "../../../utils/loginTokenReduxProcess";
+import { useLoginOut } from "../hook/useLogInOut";
 
 type signUpResponse = {
   message: string,
@@ -30,7 +27,7 @@ export const SignUp =()=>{
   }
 
   
-
+  const {logInTokenBatch, } = useLoginOut()
   const submit = async() => {
     const emailCheckResult = authChk.chkEmail(email)
     if(emailCheckResult){
@@ -47,10 +44,9 @@ export const SignUp =()=>{
         const res = await axios.post<signUpResponse>(`${APIRouter.users.signUp}`, {
           email, password, });
         alert(res.data.message)
-        loginTokenReduxProcess( res.data.token)
+        await logInTokenBatch( res.data.token)
         navigate(ROUTES.HOME, { replace: true });
-      } catch (error) {
-        // axiosDetailErr(axios, error as Error | AxiosError<unknown, any>)
+      } catch {
       }
       setLoading(false);
   };

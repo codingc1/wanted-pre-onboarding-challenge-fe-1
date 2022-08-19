@@ -1,6 +1,4 @@
-import { useReactiveVar } from "@apollo/client";
 import {  BrowserRouter as Router, Route, Routes, } from "react-router-dom";
-import { isLoggedInVar } from "../apollo";
 import { NotFound } from "../components/common/404";
 import { Footer } from "../components/footer/footer";
 import { Home } from "../page/home/home";

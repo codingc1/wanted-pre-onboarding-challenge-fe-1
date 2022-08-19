@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react"
 import {  useNavigate } from "react-router-dom";
-import { authTokenVar, isLoggedInVar } from "../../../apollo"
-import { LOCALSTORAGE_TOKEN } from "../../../constants"
 import { SmLimeButton } from "../../../components/common/button/sm-lime-button";
 import { axiosDetailErr } from "../../../api/axios-func";
 import { authChk } from "../../../func/auth/chk-func";
 import { ROUTES } from "../../../routers/route-name-constants";
 import useLoginMutation from "../../../hooks/query/useLogin";
 import useResultSuccessOrErrorToast from "../../../hooks/common/useToast";
-import { loginTokenReduxProcess } from "../../../utils/loginTokenReduxProcess";
+import { useLoginOut } from "../hook/useLogInOut";
+
 
 export const Login =()=>{
     let navigate = useNavigate();
+
     const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('')
   // const [isLoading  , setLoading] = useState(false);
 
-
+  const {logInTokenBatch, logOutokenBatch} = useLoginOut()
   useEffect(()=>{
     const reset =async()=>{
-      localStorage.removeItem(LOCALSTORAGE_TOKEN);
-      authTokenVar(null)
-      isLoggedInVar(false)
+      logOutokenBatch()
+      navigate(ROUTES.LOGIN, { replace: true });
     }
     reset()
   },[])
@@ -36,8 +35,8 @@ export const Login =()=>{
 
   const { error:toastError, }  =  useResultSuccessOrErrorToast()
   const { mutate:loginMutate, isLoading } = useLoginMutation({
-    onSuccess: (loginData) => { //loginData
-      loginTokenReduxProcess(loginData.token)
+    onSuccess: async(loginData) => { //loginData
+      await logInTokenBatch(loginData.token)
       navigate(ROUTES.HOME, { replace: true });
     },
     onError: (error) => {

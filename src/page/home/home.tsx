@@ -1,33 +1,35 @@
-import { useReactiveVar } from "@apollo/client";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { APIRouter, TodoResponse } from "../../api/api-router";
-import { axiosWithToken } from "../../api/axios-instance";
-import { isLoggedInVar } from "../../apollo";
+
 import { SmLimeButton } from "../../components/common/button/sm-lime-button";
 import { LOCALSTORAGE_TOKEN } from "../../constants";
-import { logOutFunc } from "../../func/auth/logout-func";
 import { ROUTES } from "../../routers/route-name-constants";
-
+import { useAppSelector } from "../../stores/hooks";
+import { selectIsLogin } from "../../stores/user/login-slice";
+import { useLoginOut } from "../user/hook/useLogInOut";
 
 export const Home =()=>{
     let navigate = useNavigate();
-    const isLoggedIn = useReactiveVar(isLoggedInVar);
+    
+    const isLogin = useAppSelector(selectIsLogin);
 
+    const { logOutokenBatch} = useLoginOut()
     const goToLogin=()=>{
         localStorage.removeItem(LOCALSTORAGE_TOKEN);
         alert('로그아웃되어 로그인으로 이동합니다.')
         navigate(ROUTES.LOGIN, { replace: true })
     }
     useEffect(()=>{
-        if( !isLoggedIn )goToLogin()
+        if( !isLogin )goToLogin()
     },[])
 
     const goTodo=()=>{
         navigate(ROUTES.TODOLIST)
     }
     const logOut=()=>{
-        logOutFunc(navigate)
+        logOutokenBatch()
+        navigate(ROUTES.LOGIN, { replace: true })
     }
 
     return(
@@ -41,3 +43,4 @@ export const Home =()=>{
     )
     
 }
+
