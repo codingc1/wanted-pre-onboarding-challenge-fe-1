@@ -1,5 +1,6 @@
 import { ITodo,  } from "../../../stores/todo-data"
 import { useDeleteTodoMutation } from "../hooks/useDeleteTodoMutation"
+import {BsTrash} from "react-icons/bs";
 
 export const TodoDelButton=({todoItem}:{todoItem:ITodo})=>{
 
@@ -11,6 +12,11 @@ export const TodoDelButton=({todoItem}:{todoItem:ITodo})=>{
         deleteTodoFn(delItem)
       }
 
-    return<button className=" w-12 flex justify-center items-center bg-lime-300" onClick={()=>deleteSubmit(todoItem)}>삭제</button>
+    return( //BsTrash
+      <button className=" w-12 flex justify-center items-center hover:text-red-500" onClick={()=>deleteSubmit(todoItem)}>
+        <BsTrash size={14} />
+      </button>
+    )
+    
 }
 

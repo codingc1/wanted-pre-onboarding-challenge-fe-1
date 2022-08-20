@@ -27,12 +27,21 @@ export const TodoList = () => {
         
         <div className="w-full">
           {todosList?.data.map((el, index)=>(
-            <div className="w-full flex mt-2" style={{border:'1px solid rgb(229 231 235)'}} key={index} >
-              <TodoUpdateModal todoItem={el} />
-                <div className="w-full " >
-                    <div className='w-full ' >{el.title}</div>
-                    <div className='w-full'>{el.content}</div>
-                </div>
+            <div className="w-full flex mt-2 " style={{border:'1px solid rgb(229 231 235)', }} key={index} >
+              
+              <div className="w-full " >
+                  <div className="w-full h-8 flex items-center align-middle">
+                    <TodoUpdateModal todoItem={el} />
+                    <div className='w-full h-full hover:text-blue-400 cursor-pointer'
+                      onClick={()=>navigate(ROUTES.TODOLIST+'/'+String(el.id),)}
+                    >{el.title}</div>
+                  </div>
+                  <div className="w-full h-8 flex">
+                    <div className="w-8"></div>
+                    <div className='w-full '>{el.content}</div>
+                  </div>
+              </div>
+              <div ></div>
             <TodoDelButton todoItem={el} />
             </div>
           ))}
