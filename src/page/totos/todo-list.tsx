@@ -1,5 +1,7 @@
 
-import { useNavigate } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Outlet, useNavigate } from "react-router-dom";
+import { QUERY } from "../../api/queryName";
 import { ROUTES } from "../../routers/route-name-constants";
 import useGetTodoList from "./hooks/useGetTodoList";
 import { TodoAdd } from "./toto-list/todo-add";
@@ -10,15 +12,17 @@ import { TodoUpdateModal } from "./toto-list/todo-update-modal";
 
 export const TodoList = () => {
   let navigate = useNavigate();
-  // const todoData = useReactiveVar(todoDataVar);
+  
   
   const { data: todosList, } = useGetTodoList();
+  
+  
 
 
     const goHome=()=>navigate(ROUTES.HOME)
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <div className="w-full max-w-sm flex flex-col justify-center items-center">
         <div className="w-full flex justify-center  items-center mt-16" >
           <div className=" cursor-pointer" onClick={goHome}>홈</div>
@@ -33,7 +37,11 @@ export const TodoList = () => {
                   <div className="w-full h-8 flex items-center align-middle">
                     <TodoUpdateModal todoItem={el} />
                     <div className='w-full h-full hover:text-blue-400 cursor-pointer'
-                      onClick={()=>navigate(ROUTES.TODOLIST+'/'+String(el.id),)}
+                      onClick={()=>{
+                        console.log(el, 'el')
+                        console.log(ROUTES.TODOLIST+'/'+el.id, 'el.id')
+                        navigate(ROUTES.TODOLIST+'/'+String(el.id),)
+                      }}
                     >{el.title}</div>
                   </div>
                   <div className="w-full h-8 flex">
@@ -48,6 +56,7 @@ export const TodoList = () => {
         </div>
         <TodoAdd />
       </div>
+      <Outlet />
     </div>
   );
 };

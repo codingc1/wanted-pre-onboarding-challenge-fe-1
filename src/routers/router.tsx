@@ -22,14 +22,15 @@ export const TodoRouter = () => {
       <Route path={ROUTES.LOGIN} element={<Login />} />
       <Route path={ROUTES.SIGNUP} element={<SignUp />} />
 
-      <Route path={ROUTES.TODOLIST} element={
+      <Route path="/todos" element={
         
             <TodoList />
         }
       >
-        
+        <Route path=":id" element={<TodoDetail />} />
+        {/* <Route path={':id'} element={<TodoDetail />} /> */}
       </Route>
-      <Route path={ROUTES.TODOLIST+'/:id'} element={<TodoDetail />} />
+      {/* <Route path={ROUTES.TODOLIST+'/:id'} element={<TodoDetail />} /> */}
       
       <Route path='*' element={<NotFound />} />
     </Routes>

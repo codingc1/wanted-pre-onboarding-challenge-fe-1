@@ -6,14 +6,14 @@ import { useParams } from "react-router";
 //   }
 
 export const TodoDetail=()=>{
-    // const {id} = useParams();
-    // useEffect(()=>{
+    const {id} = useParams();
+    useEffect(()=>{
         
-    //     console.log(id, 'id')
-    // },)
+        console.log(id, 'id id')
+    },[id])
 
     return(
-        <div className="w-full h-screen flex flex-col items-center">
+        <div className="w-full flex flex-col items-center">
             <div className="w-full max-w-sm flex flex-col justify-center items-center">
                 <div className="w-full flex justify-center  items-center mt-16" >
                     {/* <div className=" cursor-pointer" onClick={goHome}>홈</div> */}
