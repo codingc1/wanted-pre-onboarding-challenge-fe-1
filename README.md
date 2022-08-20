@@ -4,10 +4,10 @@
 
 ## 작동 화면
 ### login, 새로고침
-<img src="https://user-images.githubusercontent.com/53177533/185738893-735c7d14-3c04-424a-b6ae-ee112c92e6a5.gif">
+<img src="https://user-images.githubusercontent.com/53177533/185739821-c8e3371a-8324-486e-9c7e-d18fa0823b96.gif">
 
 ### Todo : 추가삭제, 뒤로 버튼 작동
-<img src="https://user-images.githubusercontent.com/53177533/185739520-5a35c855-3ba1-47dc-a345-0644d9e4b91d.gif">
+<img src="https://user-images.githubusercontent.com/53177533/185739832-16fb7d1a-fb69-4f7d-9f3d-7844fb7b7885.gif">
 
 
 ### Assignment 1 - Login / SignUp
