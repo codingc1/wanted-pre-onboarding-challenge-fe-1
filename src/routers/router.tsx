@@ -4,6 +4,7 @@ import { Footer } from "../components/footer/footer";
 import { Home } from "../page/home/home";
 import { TodoDetail } from "../page/totos/todo-detail/todo-detail";
 import { TodoList } from "../page/totos/todo-list";
+import { TodoAdd } from "../page/totos/toto-list/todo-add";
 import { Login } from "../page/user/auth/login";
 import { SignUp } from "../page/user/auth/signup";
 import { RequireAuth } from "./requireAuth";
@@ -27,10 +28,8 @@ export const TodoRouter = () => {
             <TodoList />
         }
       >
-        <Route path=":id" element={<TodoDetail />} />
-        {/* <Route path={':id'} element={<TodoDetail />} /> */}
+        <Route path=":todoId" element={<TodoDetail />} />
       </Route>
-      {/* <Route path={ROUTES.TODOLIST+'/:id'} element={<TodoDetail />} /> */}
       
       <Route path='*' element={<NotFound />} />
     </Routes>

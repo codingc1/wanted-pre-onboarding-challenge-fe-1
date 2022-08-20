@@ -1,6 +1,7 @@
 
 
 export const QUERY ={
-    TODOLIST : 'todoList',
+    TODOLIST : ['todoList'],
+    TODODETAIL : ['todoList', 'getOne'],
 
 } as const

@@ -13,9 +13,9 @@ export const useNewTodoMutation=()=>{
     const queryClient = useQueryClient() //https://tanstack.com/query/v4/docs/guides/query-invalidation#query-matching-with-invalidatequeries
 
     const { error:toastError, }  =  useResultSuccessOrErrorToast()
-    const { mutate, isLoading, error,isSuccess  } = useMutation(newTodo, {
+    const { mutate, isLoading, error,isSuccess,   } = useMutation(newTodo, {
         onSuccess: () => {
-          queryClient.invalidateQueries([QUERY.TODOLIST])
+          queryClient.invalidateQueries(QUERY.TODOLIST)
         },
         onError:()=>{
             toastError({message:axiosDetailErr(error)}) 
@@ -25,7 +25,7 @@ export const useNewTodoMutation=()=>{
         mutate({title, content})
     }
 
-    return { newTodoFn, isLoading, error, isSuccess } 
+    return { newTodoFn, isLoading, error, isSuccess,  } 
 }
 
 

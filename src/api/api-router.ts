@@ -27,6 +27,10 @@ export const APIRouter = {
         const { data } = await axiosLoginApi.post<TodoResponse>(`${APIRouter.todos.crud}`, todoObj );
         return data;
       },
+      getTodoById: async function(id:string | undefined) :Promise<TodoResponseOneTodo> {
+        const { data } = await axiosLoginApi.get<TodoResponseOneTodo>(`${APIRouter.todos.crud}/${id}` );
+        return data;
+      },
     },
   }
 

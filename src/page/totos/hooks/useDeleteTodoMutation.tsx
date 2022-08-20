@@ -18,7 +18,7 @@ export const useDeleteTodoMutation=()=>{
     const { error:toastError, } = useResultSuccessOrErrorToast()
     const { mutate, isLoading, error,isSuccess  } = useMutation(deleteTodo, {
         onSuccess: () => {
-          queryClient.invalidateQueries([QUERY.TODOLIST])
+          queryClient.invalidateQueries(QUERY.TODOLIST)
         },
         onError:()=>{
             toastError({message:axiosDetailErr(error)}) 

@@ -1,7 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
+import { QUERY } from "../../../api/queryName"
 import { useNewTodoMutation } from "../hooks/useNewTodoMutation"
 
 export const TodoAdd=()=>{
+    const queryClient = useQueryClient() 
+
     const [title, setTitle]=useState('')
     const [content, setContent]=useState('')
 
@@ -12,27 +16,30 @@ export const TodoAdd=()=>{
         setContent( e.target.value)
     }
    
-    const  { newTodoFn, isLoading, isSuccess  }  = useNewTodoMutation()
+    const  { newTodoFn, isLoading, isSuccess,  }  = useNewTodoMutation()
     const submit=async()=>{
         if(isLoading)return;
         newTodoFn({title, content})
-        if(isSuccess ){
+        // if(isSuccess ){
             setTitle('')
             setContent('')
-        }
+        // }
         }
     
     return(
-        <div className="w-full mt-4">
-            <div className="w-full flex " >
-                <div className="w-full " style={{flex:1}}>
-                    <input className='w-full input-lime' placeholder="title" value={title} onChange={onChangeTitle}  />
-                    <textarea className='w-full input-lime' style={{resize:'none'}} placeholder="content" value={content} onChange={onChangeContent}  />
+        <div className="w-full flex flex-col items-center">
+        <div className="w-full max-w-sm flex flex-col justify-center items-center">
+            <div className="w-full mt-4">
+                <div className="w-full flex " >
+                    <div className="w-full " style={{flex:1}}>
+                        <input className='w-full input-lime' placeholder="title" value={title} onChange={onChangeTitle}  />
+                        <textarea className='w-full input-lime' style={{resize:'none'}} placeholder="content" value={content} onChange={onChangeContent}  />
+                    </div>
+                    <button className=" w-12 flex justify-center items-center bg-lime-300" onClick={submit}>추가</button>
                 </div>
-                <button className=" w-12 flex justify-center items-center bg-lime-300" onClick={submit}>추가</button>
+                
             </div>
-            
-        </div>
+        </div></div>
     )
 }
 

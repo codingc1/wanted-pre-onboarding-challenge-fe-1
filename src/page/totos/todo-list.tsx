@@ -1,6 +1,6 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { QUERY } from "../../api/queryName";
 import { ROUTES } from "../../routers/route-name-constants";
 import useGetTodoList from "./hooks/useGetTodoList";
@@ -12,7 +12,7 @@ import { TodoUpdateModal } from "./toto-list/todo-update-modal";
 
 export const TodoList = () => {
   let navigate = useNavigate();
-  
+  const {todoId} = useParams();
   
   const { data: todosList, } = useGetTodoList();
   
@@ -36,27 +36,31 @@ export const TodoList = () => {
               <div className="w-full " >
                   <div className="w-full h-8 flex items-center align-middle">
                     <TodoUpdateModal todoItem={el} />
-                    <div className='w-full h-full hover:text-blue-400 cursor-pointer'
+                    <div className='flex items-center hover:text-blue-400 cursor-pointer'
                       onClick={()=>{
-                        console.log(el, 'el')
-                        console.log(ROUTES.TODOLIST+'/'+el.id, 'el.id')
-                        navigate(ROUTES.TODOLIST+'/'+String(el.id),)
+                        if(todoId === el.id){
+                          navigate(ROUTES.TODOLIST)
+                        }else{
+                          navigate(ROUTES.TODOLIST+'/'+String(el.id),)
+                        }
+                        
                       }}
                     >{el.title}</div>
                   </div>
-                  <div className="w-full h-8 flex">
+                  {/* <div className="w-full h-8 flex">
                     <div className="w-8"></div>
                     <div className='w-full '>{el.content}</div>
-                  </div>
+                  </div> */}
               </div>
               <div ></div>
             <TodoDelButton todoItem={el} />
             </div>
           ))}
         </div>
-        <TodoAdd />
+        {/* <TodoAdd /> */}
       </div>
       <Outlet />
+      <TodoAdd />
     </div>
   );
 };

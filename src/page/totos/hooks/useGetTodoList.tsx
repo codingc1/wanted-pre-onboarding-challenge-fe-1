@@ -6,7 +6,7 @@ import { QUERY } from '../../../api/queryName';
 import { TodoErrorResponse } from '../../../types/errTypes';
 
 const useGetTodoList = () => {
-  return useQuery<TodoResponse, AxiosError<TodoErrorResponse>>([QUERY.TODOLIST], ApiUser.todo.getTodoList, {
+  return useQuery<TodoResponse, AxiosError<TodoErrorResponse>>(QUERY.TODOLIST, ApiUser.todo.getTodoList, {
     // staleTime: 5000,
     // onError: (error) => {
     //   console.log(error, 'error is')

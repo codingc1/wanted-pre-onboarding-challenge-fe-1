@@ -1,42 +1,57 @@
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { Outlet } from "react-router-dom";
+import { ApiUser } from "../../../api/api-router";
+import { QUERY } from "../../../api/queryName";
+import { ITodo } from "../../../stores/todo-data";
 
 // export interface IBoardsView {
 //     id: string;
 //   }
 
 export const TodoDetail=()=>{
-    const {id} = useParams();
-    useEffect(()=>{
-        
-        console.log(id, 'id id')
-    },[id])
+    const {todoId} = useParams();
+
+    const queryKeyGetTodoById = [QUERY.TODOLIST, 'getOne'] 
+    type ApiGetTodoById = ITodo;
+    const  getTodoById=async(id: string | undefined)=> {
+        if (!id) {
+            return Promise.reject()
+         }
+        const {data} =await ApiUser.todo.getTodoById(id) ;
+        return data;
+      }
+
+      const { data } = useQuery<ApiGetTodoById>([...queryKeyGetTodoById, todoId], () => getTodoById(todoId, ),{
+        enabled:!!todoId
+        } )
+
+    // if(data){
+    //     console.log(data, 'detail data')
+    // }
+
 
     return(
         <div className="w-full flex flex-col items-center">
             <div className="w-full max-w-sm flex flex-col justify-center items-center">
-                <div className="w-full flex justify-center  items-center mt-16" >
-                    {/* <div className=" cursor-pointer" onClick={goHome}>홈</div> */}
-                    <div className="ml-2 font-semibold text-xl">Todo Detail</div>
-                </div>
+                {data && <div className="w-full flex justify-center  items-center mt-3" >
+                    <div className="ml-2 font-semibold text-xl">{data.title}</div>
+                </div>}
             <div className="w-full">    
-            <div className="w-full flex mt-2 " style={{border:'1px solid rgb(229 231 235)', }}>
+            {data && <div className="w-full flex mt-2 " style={{border:'1px solid rgb(229 231 235)', }}>
               
-              {/* <div className="w-full " >
-                  <div className="w-full h-8 flex items-center align-middle">
-                    <TodoUpdateModal todoItem={el} />
-                    <div className='w-full h-full hover:text-blue-400 cursor-pointer' >{el.title}</div>
-                  </div>
-                  <div className="w-full h-8 flex">
-                    <div className="w-8"></div>
-                    <div className='w-full '>{el.content}</div>
+              <div className="w-full " >
+                  <div className="w-full flex">
+                    <div className='w-full p-3'>{data.content}</div>
                   </div>
               </div>
               <div ></div>
-                <TodoDelButton todoItem={el} /> */}
+                
+            </div>}
             </div>
             </div>
-            </div>
+
         </div>
     )
 }
