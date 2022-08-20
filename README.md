@@ -2,6 +2,9 @@
 
 ## 클라이언트 구현 과제 
 
+## login
+<img src="https://user-images.githubusercontent.com/53177533/185738893-735c7d14-3c04-424a-b6ae-ee112c92e6a5.gif">
+
 ### Assignment 1 - Login / SignUp
 
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
