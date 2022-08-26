@@ -24,8 +24,9 @@ export const TodoRouter = () => {
       <Route path={ROUTES.SIGNUP} element={<SignUp />} />
 
       <Route path="/todos" element={
-        
+        <RequireAuth >
             <TodoList />
+          </RequireAuth>
         }
       >
         <Route path=":todoId" element={<TodoDetail />} />
