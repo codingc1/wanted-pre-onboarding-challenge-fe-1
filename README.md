@@ -54,41 +54,4 @@
 > npm start # http://localhost:5000
 ```
 
-### 프로젝트 회고
 
-* react router v6 적용 
- - 프로텍트 라우터 : TodoList를 pros받는 라우터를 만들려고 했지만 v6에서는 잘 적용이 되지 않는듯 했습니다. 결국 공식문서대로 적용하였습니다. 
-```
-<Route path="/todos" element={
-        <RequireAuth >
-            <TodoList />
-          </RequireAuth>
-        }
-      >
-        <Route path=":todoId" element={<TodoDetail />} />
-      </Route>
-```
-
-* reat-query 적용 
-reat-query 적용은 문서나 동기들이 한것을 참고하면 되었지만. 디테일하게 이해를 하는데 시간을 많이 소비하였다.
-```
-const queryKeyGetTodoById = [QUERY.TODOLIST, 'getOne']
-const { data } = useQuery<ApiGetTodoById>([...queryKeyGetTodoById, todoId], () => getTodoById(todoId, ),{
-        enabled:!!todoId
-        } )
-```
-enabled : state에 따라 api 요청을 막거나 처리
-
-* apollo => redux-toolkit 대체
- - redux를 사용한지 너무 오래되어 apollo로 상태관리(login 유무)하다 redux-toolkit로 바꾸었다.
- - 공식문서는 예전 사용자가 보기 좋게 되어 있고 인터넷 예제들은 예전 버전이 대부분이라 적용하는데 어려움이 있었지만 그만큼 뿌듯했다.
- 
- - 리덕스에서 스토어에 변경이 생기면 useSelector훅을 사용한 모든 컴포넌트의 useSelector의 인자와 store의 state와 비교하여 다르면 리렌더링된다.
-하지만 state가 primitive value가 아닌 객체,배열 등이라면 실제 값들은 바뀌지 않았다 하더라도 다른 객체로 인식하여 리렌더링된다.
-이럴 때는 특정 값을 가져오거나 조건 함수를 적용 시켜서 리렌더링을 방지할 수 있다.
-```
- const userId=useSelect(state=>state.user.currentUser.id);
- const currentUser=useSelect(state=>state.user.currentUser,
-			(left,right)=>left.id===right.id&&left.name===right.name);
-```
-* 제한된 시간동안 Todo도 만들고 여러 라이브러리 공식문서를 보고 적용하면서 그 과정이 반복 훈련이 되어 좋았다. 단순 적용보다 깊이 이해하는것은 더 어려운 일이고 많이 부족하다고 느꼇다. 하지만 여러 상황에 대처하려면 필요한 일이라고 생각하게 되었다.
